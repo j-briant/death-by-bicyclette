@@ -46,7 +46,7 @@ jobs:
         # the table with data, and then retrieves the data.
         run: dbml2slq pkg/database/structure.dbml | psql dev
 
-        - name: Connect to database
+      - name: Connect to database
         # Runs a script that creates a PostgreSQL table, populates
         # the table with data, and then retrieves the data.
         run: psql -d dev -c "select * from dbb.location;"
