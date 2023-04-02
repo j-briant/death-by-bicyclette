@@ -1,0 +1,27 @@
+2023-04-02T08:27:25.362Z
+SyntaxError: You have a syntax error at "structure.dbml" line 15 column 30. Can't find table "null"."user"
+    at /usr/local/lib/node_modules/@dbml/cli/lib/cli/utils.js:55:13
+    at Array.forEach (<anonymous>)
+    at generate (/usr/local/lib/node_modules/@dbml/cli/lib/cli/utils.js:48:14)
+    at exportHandler (/usr/local/lib/node_modules/@dbml/cli/lib/cli/export.js:38:27)
+    at Object.dbml2sql (/usr/local/lib/node_modules/@dbml/cli/lib/cli/index.js:27:23)
+    at Object.<anonymous> (/usr/local/lib/node_modules/@dbml/cli/bin/dbml2sql.js:4:19)
+    at Module._compile (internal/modules/cjs/loader.js:999:30)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:1027:10)
+    at Module.load (internal/modules/cjs/loader.js:863:32)
+    at Function.Module._load (internal/modules/cjs/loader.js:708:14)
+
+ROOT_ERROR:
+Error: Can't find table "null"."user"
+    at Endpoint.error (/usr/local/lib/node_modules/@dbml/cli/node_modules/@dbml/core/lib/model_structure/element.js:77:13)
+    at new Endpoint (/usr/local/lib/node_modules/@dbml/cli/node_modules/@dbml/core/lib/model_structure/endpoint.js:90:13)
+    at /usr/local/lib/node_modules/@dbml/cli/node_modules/@dbml/core/lib/model_structure/ref.js:99:31
+    at Array.forEach (<anonymous>)
+    at Ref.processEndpoints (/usr/local/lib/node_modules/@dbml/cli/node_modules/@dbml/core/lib/model_structure/ref.js:98:20)
+    at new Ref (/usr/local/lib/node_modules/@dbml/cli/node_modules/@dbml/core/lib/model_structure/ref.js:83:11)
+    at /usr/local/lib/node_modules/@dbml/cli/node_modules/@dbml/core/lib/model_structure/database.js:174:28
+    at Array.forEach (<anonymous>)
+    at Database.processSchemaElements (/usr/local/lib/node_modules/@dbml/cli/node_modules/@dbml/core/lib/model_structure/database.js:144:16)
+    at new Database (/usr/local/lib/node_modules/@dbml/cli/node_modules/@dbml/core/lib/model_structure/database.js:100:11)
+{"start":{"offset":592,"line":15,"column":30},"end":{"offset":607,"line":15,"column":45}}
+
