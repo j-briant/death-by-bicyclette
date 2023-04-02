@@ -39,9 +39,6 @@ jobs:
       - name: Create database
         # Runs a script that creates a PostgreSQL table, populates
         # the table with data, and then retrieves the data.
-<<<<<<< HEAD
-        run: dbml2slq pkg/database/structure.dbml | psql -c 
-=======
         run: createdb dev
 
       - name: Create the schema from dbml
@@ -53,4 +50,3 @@ jobs:
         # Runs a script that creates a PostgreSQL table, populates
         # the table with data, and then retrieves the data.
         run: psql -d dev -c "select * from dbb.location;"
->>>>>>> a0844d2 (new workflow test)
