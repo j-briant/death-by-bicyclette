@@ -1,0 +1,18 @@
+Project death_by_bicyclette {
+	database_type: 'PostgreSQL'
+	Note: 'The database structure for the death-by-bicyclette project'
+}
+
+Table dbb.user {
+	uid integer [primary key, unique, increment, note: 'unique identifier for the user table'] 
+	username varchar(10) [unique, not null, note: 'name of the user']
+	password text [unique, not null, note: 'password of the user']
+	created_on timestamp [not null, note: 'date of creation of the user']
+}
+
+Table dbb.location {
+	uid integer [primary key, unique, increment, note: 'unique identifier for the location table'] 
+	user_uid integer [not null, ref: > dbb.user.uid, note: 'unique identifier of the user who created the location']
+	created_on timestamp [not null, note: 'date of creation of the location']
+	geom geometry [not null, note: 'geometry (point) of the location']
+}
