@@ -43,11 +43,11 @@ jobs:
         
       - name: Convert dbml to sql and create database schema
         run: dbml2sql pkg/database/structure.dbml | psql -h postgres -d postgres_db -U postgres_user
+        env:
+          PGPASSWORD: postgres_password
 
       # queries database with postgres client
       - name: Query database
         run: psql -h postgres -d postgres_db -U postgres_user -c 'SELECT * FROM dbb.location;'
         env:
-          # postgress password is required; alternatively, you can run:
-          # `PGPASSWORD=postgres_password psql ...`
           PGPASSWORD: postgres_password
