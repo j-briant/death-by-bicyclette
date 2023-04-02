@@ -1,29 +1,34 @@
-name: PostgreSQL service example
+# .github/workflows/postgres.yml
 on: push
-
 jobs:
-  # Label of the container job
+  # label of the container job
   postgres-job:
-    # Containers must run in Linux based operating systems
+    # containers must run in Linux based operating systems
     runs-on: ubuntu-latest
-    container: postgres:15
+    # Docker Hub image that `postgres-job` executes in
+    container: node:latest
 
-    # Service containers to run with `container-job`
+    # service containers to run with `postgres-job`
     services:
-      # Label used to access the service container
+      # label used to access the service container
       postgres:
         # Docker Hub image
         image: postgres:15
-        # Provide the password for postgres
+        # service environment variables
+        # `POSTGRES_HOST` is `postgres`
         env:
-          POSTGRES_PASSWORD: postgres
-          POSTGRES_HOST: postgres
+          # optional (defaults to `postgres`)
+          POSTGRES_DB: postgres_db
+          # required
+          POSTGRES_PASSWORD: postgres_password
+          # optional (defaults to `5432`)
           POSTGRES_PORT: 5432
-          POSTGRES_DB: dev
+          # optional (defaults to `postgres`)
           POSTGRES_USER: postgres_user
         ports:
+          # maps tcp port 5432 on service container to the host
           - 5432:5432
-        # Set health checks to wait until postgres has started
+        # set health checks to wait until postgres has started
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
@@ -31,25 +36,15 @@ jobs:
           --health-retries 5
 
     steps:
-      # Downloads a copy of the code in your repository before running CI tests
-      - name: Check out repository code
-        uses: actions/checkout@v3
+      - name: Install PostgreSQL client
+        run: |
+          apt-get update
+          apt-get install --yes postgresql-client
 
-      # Performs a clean installation of all dependencies in the `package.json` file
-      # For more information, see https://docs.npmjs.com/cli/ci.html
-      - name: Install dependencies
-        run: npm install -g @dbml/cli
-
-      - name: Create the schema from dbml
-        # Runs a script that creates a PostgreSQL table, populates
-        # the table with data, and then retrieves the data.
-        run: dbml2sql pkg/database/structure.dbml | psql -d $POSTGRES_DB -h postgres
-        env: 
-          PGPASSWORD: postgres
-
-      - name: Connect to database
-        # Runs a script that creates a PostgreSQL table, populates
-        # the table with data, and then retrieves the data.
-        run: psql -d $POSTGRES_DB -h $POSTGRES_HOST -c "select * from dbb.location;"
-        env: 
-          PGPASSWORD: postgres
+      # queries database with postgres client
+      - name: Query database
+        run: psql -h postgres -d postgres_db -U postgres_user -c 'SELECT 1;'
+        env:
+          # postgress password is required; alternatively, you can run:
+          # `PGPASSWORD=postgres_password psql ...`
+          PGPASSWORD: postgres_password
