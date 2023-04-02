@@ -19,6 +19,8 @@ jobs:
           POSTGRES_HOST: localhost
           POSTGRES_PORT: 5432
           POSTGRES_DB: dev
+        ports:
+          - 5432:5432
         # Set health checks to wait until postgres has started
         options: >-
           --health-cmd pg_isready
@@ -39,7 +41,7 @@ jobs:
       - name: Create the schema from dbml
         # Runs a script that creates a PostgreSQL table, populates
         # the table with data, and then retrieves the data.
-        run: dbml2sql pkg/database/structure.dbml | psql -d $POSTGRES_DB -h $POSTGRES_HOST
+        run: dbml2sql pkg/database/structure.dbml | psql -d postgresql://postgres@$POSTGRES_HOST/$POSTGRES_DB
 
       - name: Connect to database
         # Runs a script that creates a PostgreSQL table, populates
