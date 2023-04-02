@@ -42,7 +42,7 @@ jobs:
       - name: Create the schema from dbml
         # Runs a script that creates a PostgreSQL table, populates
         # the table with data, and then retrieves the data.
-        run: dbml2sql pkg/database/structure.dbml | psql -d $POSTGRES_DB -h postgres -U $POSTGRES_USER
+        run: dbml2sql pkg/database/structure.dbml | psql -d $POSTGRES_DB -h postgres
         env: 
           PGPASSWORD: postgres
 
