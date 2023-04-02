@@ -39,14 +39,14 @@ jobs:
       - name: Create database
         # Runs a script that creates a PostgreSQL table, populates
         # the table with data, and then retrieves the data.
-        run: createdb dev
+        run: createdb dev -h localhost
 
       - name: Create the schema from dbml
         # Runs a script that creates a PostgreSQL table, populates
         # the table with data, and then retrieves the data.
-        run: dbml2slq pkg/database/structure.dbml | psql dev
+        run: dbml2slq pkg/database/structure.dbml | psql dev -h localhost
 
       - name: Connect to database
         # Runs a script that creates a PostgreSQL table, populates
         # the table with data, and then retrieves the data.
-        run: psql -d dev -c "select * from dbb.location;"
+        run: psql -d dev -h localhost -c "select * from dbb.location;"
