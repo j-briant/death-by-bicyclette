@@ -41,6 +41,9 @@ jobs:
           apt-get update
           apt-get install --yes postgresql-client
         
+      - name: Install dbml2sql
+        run: npm install -g @dbml/cli
+        
       - name: Convert dbml to sql and create database schema
         run: dbml2sql pkg/database/structure.dbml | psql -h postgres -d postgres_db -U postgres_user
         env:
