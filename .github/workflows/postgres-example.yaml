@@ -3,16 +3,17 @@ on: push
 
 jobs:
   # Label of the container job
-  container-job:
+  postgres-job:
     # Containers must run in Linux based operating systems
     runs-on: ubuntu-latest
+    container: postgres:15
 
     # Service containers to run with `container-job`
     services:
       # Label used to access the service container
       postgres:
         # Docker Hub image
-        image: postgres
+        image: postgres:15
         # Provide the password for postgres
         env:
           POSTGRES_PASSWORD: postgres
